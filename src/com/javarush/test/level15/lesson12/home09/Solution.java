@@ -28,43 +28,54 @@ import java.io.InputStreamReader;
 
 
 public class Solution {
+    public  static boolean checkString(String string) {
+        if (string == null) return false;
+        return string.matches("^-?\\d+$");
+    }
     public static void main(String[] args) {
         //add your code here
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)))
         {
             String  str = reader.readLine();
-            int a = str.indexOf("?")+1;
-            String arr = str.substring(a);
-            String tmp = "";
-            String[] mas = arr.split("&");
-            Double d = null;
+            String arr  = str.substring(str.indexOf("?")+1);
+            int a = str.indexOf("?") + 1;
+            String[] mas = arr.split("(\\&+)|(\\?+)");
 
-           for (int i =0; i<mas.length; i++)
-           {
-               if (mas[i].contains("=") && !mas[i].contains("obj"))
-               {
+            for (String s: mas)
+            {
 
-                   int j = mas[i].indexOf("=");
-                   tmp += mas[i].substring(0,j) + " ";
-               } else if (!mas[i].contains("="))
-               {
-                   tmp += mas[i] + " ";
-               }
-               else if (mas[i].contains("=") && mas[i].contains("obj"))
-               {
-                   int j = mas[i].indexOf("=");
-                   tmp += mas[i].substring(0,j) + " ";
-                   String s = mas[i].substring(j+1);
-                   d = Double.parseDouble(s);
-               }
+                if (s.contains("="))
+                {
+                    System.out.print(s.substring(0, s.indexOf("=")) + " ");
+                } else System.out.print(s + " ");
+            }
+            System.out.println("");
 
-           }
-           if (d != null)
-           {
-               alert(tmp);
-               alert(d);
-           }
-            else alert(tmp);
+            String[] array = null;
+            for (String s: mas)
+            {
+                array = s.split("=");
+
+                for (String arq : array)
+                {
+                    if (arq.equals("obj"))
+                    {
+
+                        if (checkString(array[1])) alert(Double.parseDouble(array[1]));
+                        else if (array[1].contains("."))
+                        {
+                            try {
+                                alert((Double.parseDouble(array[1])));
+                            } catch (NumberFormatException e)
+                            {
+                                alert(Double.parseDouble(array[1]));
+                            }
+                        } else alert(array[1]);
+                    }
+                }
+
+            }
+
 
         } catch (IOException e)
         {
