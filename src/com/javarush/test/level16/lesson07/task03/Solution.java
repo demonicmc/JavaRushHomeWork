@@ -10,9 +10,9 @@ package com.javarush.test.level16.lesson07.task03;
 В г. Лондон сейчас 0:0:1!
 */
 
-import java.util.ArrayList;
+
 import java.util.Calendar;
-import java.util.List;
+
 
 public class Solution {
     public static volatile boolean isStopped = false;
@@ -64,10 +64,14 @@ public class Solution {
             calendar.add(Calendar.SECOND, count++);
 
             Calendar calendar1 = Calendar.getInstance();
-            if (calendar.get(Calendar.HOUR_OF_DAY) == 0 && calendar.get(Calendar.MINUTE) == 0 && calendar.get(Calendar.SECOND) == 0) {
+            if (calendar.get(Calendar.HOUR_OF_DAY) == 0
+                    && calendar.get(Calendar.MINUTE) == 0
+                        && calendar.get(Calendar.SECOND) == 0) {
+
                 System.out.println(String.format("В г. %s сейчас полночь!", cityName));
             } else {
-                System.out.println(String.format("В г. %s сейчас %d:%d:%d!", cityName, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND)));
+                System.out.println(String.format("В г. %s сейчас %d:%d:%d!", cityName,
+                        calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND)));
             }
 
         }
