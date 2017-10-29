@@ -1,38 +1,36 @@
-package com.javarush.test.level19.lesson10.home01;
+package com.javarush.test.level19.lesson10.home02;
 
-/* Считаем зарплаты
+/* Самый богатый
 В метод main первым параметром приходит имя файла.
 В этом файле каждая строка имеет следующий вид:
 имя значение
 где [имя] - String, [значение] - double. [имя] и [значение] разделены пробелом
 
 Для каждого имени посчитать сумму всех его значений
-Все данные вывести в консоль, предварительно отсортировав в возрастающем порядке по имени
+Вывести в консоль имена, у которых максимальная сумма
+Имена разделять пробелом либо выводить с новой строки
 Закрыть потоки. Не использовать try-with-resources
 
 Пример входного файла:
-Петров 2
-Сидоров 6
+Петров 0.501
 Иванов 1.35
-Петров 3.1
+Петров 0.85
 
 Пример вывода:
-Иванов 1.35
-Петров 5.1
-Сидоров 6.0
+Петров
 */
 
-import java.io.*;
+import java.io.File;
 import java.util.*;
 
 public class Solution {
     public static void main(String[] args) {
-
+        Scanner sc = null;
         try
         {
             File f = new File(args[0]);
-
-            Scanner sc = new Scanner(f);
+            List<String> maximum = new ArrayList<>();
+            sc = new Scanner(f);
             Map<String, Double> map = new TreeMap<>();
             String[] arr = null;
 
@@ -43,17 +41,34 @@ public class Solution {
                 } else
                     map.put(arr[0], Double.parseDouble(arr[1]));
             }
-            sc.close();
 
+
+            double max = 0;
+            for (Map.Entry<String, Double>  m : map.entrySet()){
+                Double v = m.getValue();
+                if (max < v){
+                    max = v;
+                }
+            }
             for (Map.Entry<String, Double>  m : map.entrySet()){
                 String k = m.getKey();
-                Double v = m.getValue();
-                System.out.println(k + " " + v);
+                Double v= m.getValue();
+                if (v == max){
+                    maximum.add(k);
+                }
             }
+            for (String s: maximum)
+            {
+                System.out.println(s);
+            }
+
 
 
         } catch (Exception e){
             e.printStackTrace();
+        } finally
+        {
+            sc.close();
         }
     }
 }
